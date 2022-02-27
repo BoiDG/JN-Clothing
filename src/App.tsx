@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { commerce } from './lib/commerce';
-import {Products, Navbar, Cart } from './components';
+import {Products, Navbar, Cart,Checkout } from './components';
 import { ICart, IOrder, IProductItem } from './interfaces';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [products, setProducts] = useState<IProductItem[]>([]);
   const [cart, setCart] = useState<ICart>({
+    id:'',
     total_items:0,
     line_items : [],
     subtotal: {
@@ -16,7 +17,7 @@ function App() {
       formatted_with_code:'0'
     }
   });
-  const [order, setOrder] = useState<IOrder>({});
+  const [order, setOrder] = useState<IOrder>();
   const [errorMessage, setErrorMessage] = useState('');
 
   const fetchProducts = async () => {
@@ -86,9 +87,9 @@ function App() {
           <Cart cart={cart} EmptyCart={handleEmptyCart} onUpdateQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} />
           } />
 
-          {/* <Route path="/checkout" element={
+          <Route path="/checkout" element={
             <Checkout cart={cart} order={order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage} />
-          } /> */}
+          } />
         </Routes>
       </main>
     </div>

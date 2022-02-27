@@ -9,7 +9,6 @@ interface IProduct{
   onAddToCart : Function;
 }
 function Product(item:IProduct) {
-  console.log(item);
   const [quantity,setQuantity] = useState(1);
   const styles = useStyles();
 

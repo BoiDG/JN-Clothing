@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { commerce } from '../../../lib/commerce';
 import AddressForm from '../AddressForm';
 import PaymentForm from '../PaymentForm';
 import useStyles from './styles';
-import { ICart } from '../../../interfaces';
+import { ICart, IOrder, IShippingInfo } from '../../../interfaces';
 
 const steps = ['Shipping address', 'Payment details'];
 
@@ -19,42 +19,59 @@ interface ICheckOut{
 
 const Checkout = (CheckOutDetail:ICheckOut) => {
   const {cart, onCaptureCheckout, order, error} = CheckOutDetail;
-  const [checkoutToken, setCheckoutToken] = useState<string>();
+  const [checkoutToken, setCheckoutToken] = useState<IOrder>();
   const [activeStep, setActiveStep] = useState(0);
-  const [shippingData, setShippingData] = useState({});
+  const [shippingData, setShippingData] = useState<IShippingInfo>();
   const classes = useStyles();
-  const history = useHistory();
-
+  const nav = useNavigate();
+  const [loading,setLoading] = useState(false);
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   useEffect(() => {
     if (cart.id) {
-      const generateToken = async () => {
+      const generateToken = async () => { 
+        // buat function kusus karena anonimus function ga bisa async
         try {
           const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
 
           setCheckoutToken(token);
         } catch {
-          if (activeStep !== steps.length) history.push('/');
+          if (activeStep !== steps.length) nav('/');
         }
       };
 
       generateToken();
     }
-  }, [cart]);
+  }, [activeStep, cart, nav]);
 
-  const test = (data) => {
+  const saveAddressData = (data:any) => {
     setShippingData(data);
+    console.log(shippingData)
     nextStep();
   };
 
-  let Confirmation = () => (order.customer ? (
+  const timeout = () =>{
+    setTimeout(() =>{
+    setLoading(true);
+    },3000);
+  }
+
+  let Confirmation = () => (order?.customer ? (
     <>
       <div>
         <Typography variant="h5">Thank you for your purchase, {order.customer.firstname} {order.customer.lastname}!</Typography>
         <Divider className={classes.divider} />
         <Typography variant="subtitle2">Order ref: {order.customer_reference}</Typography>
+      </div>
+      <br />
+      <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
+    </>
+  ) :(loading) ? (
+    <>
+      <div>
+        <Typography variant="h5">Thank you for your purchase!</Typography>
+        <Divider className={classes.divider} />
       </div>
       <br />
       <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
@@ -76,7 +93,7 @@ const Checkout = (CheckOutDetail:ICheckOut) => {
   }
 
   const Form = () => (activeStep === 0
-    ? <AddressForm checkoutToken={checkoutToken} nextStep={nextStep} setShippingData={setShippingData} test={test} />
+    ? <AddressForm checkoutToken={checkoutToken} nextStep={nextStep} setShippingData={setShippingData} saveAddressData={saveAddressData} />
     : <PaymentForm checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} shippingData={shippingData} onCaptureCheckout={onCaptureCheckout} />);
 
   return (

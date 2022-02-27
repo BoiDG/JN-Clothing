@@ -33,8 +33,39 @@ export interface ICart{
 }
 // -- end --
 
+interface IGateways{
+
+}
+export interface IShippingMethods{
+    id:string;
+    countries:string[];
+    description:string;
+    price:IPrice;
+}
 export interface IOrder{
-    
+    id:string;
+    cart_id:string;
+    gateways:IGateways;
+    product:IProductItem[];
+    shipping_methods:IShippingMethods[];
+    line_items:IProductItem[];
+    live:ICart;
+}
+
+export interface IUserCredentials{
+    firstName:string;
+    lastName:string;
+    address1:string;
+    email:string;
+    city:string;
+    zip:string;
+}
+
+export interface IShippingInfo{ 
+    data:IUserCredentials;
+    shippingCountry:string;
+    shippingSubdivision:string;
+    shippingOption:string;
 }
 
 export interface IVariantItem{
