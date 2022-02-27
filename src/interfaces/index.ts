@@ -18,18 +18,24 @@ export interface IProductItem{
     price: IPrice;
     description: string;
     image: Image;
+    line_total:IPrice;
+    quantity:number;
     // variant : IVariantItem;
 }
 // -- end --
 
 // -- cart model --
 export interface ICart{
+    id:string;
     total_items?:number;
     line_items:IProductItem[];
     subtotal:IPrice;
 }
 // -- end --
 
+export interface IOrder{
+    
+}
 
 export interface IVariantItem{
     key:string;

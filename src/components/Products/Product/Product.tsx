@@ -8,8 +8,6 @@ interface IProduct{
   product : IProductItem;
   onAddToCart : Function;
 }
-
-
 function Product(item:IProduct) {
   console.log(item);
   const [quantity,setQuantity] = useState(1);
