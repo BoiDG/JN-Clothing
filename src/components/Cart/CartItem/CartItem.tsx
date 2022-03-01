@@ -17,12 +17,19 @@ function CartItem(cartItem:ICartItem) {
     const handleUpdateCartQty = (lineItemId:string, newQuantity:number) => cartItem.onUpdateQty(lineItemId, newQuantity);
   
     const handleRemoveFromCart = (lineItemId:string) => cartItem.onRemoveFromCart(lineItemId);
-  
+
     return (
     <Card>
         <CardMedia image={cartItem.product.image.url} className={styles.media} />
       <CardContent className={styles.cardContent}>
+        <div style={{display:'flex', flexFlow:'column'}}>
         <Typography variant="h5">{cartItem.product.name}</Typography>
+        {cartItem.product.selected_options.map((variant)=>(
+          <div style={{display:'flex'}}>
+          <Typography variant="subtitle1">{variant.group_name} {variant.option_name}</Typography>
+          </div>
+        ))}
+        </div>
         <Typography variant="h6">{cartItem.product.line_total.formatted_with_symbol}</Typography>
       </CardContent>
       <CardActions className={styles.cartActions}>

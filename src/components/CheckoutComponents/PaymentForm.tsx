@@ -27,9 +27,8 @@ const PaymentForm = (paymentInterface:IPaymentForm) => {
     const cardElement = elements.getElement(CardElement);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
-    console.log(shippingData);
     if (error || !shippingData || !shippingData.data) {
-      console.log('[error]', error);
+      // console.log('[error]', error);
     } else {
       const orderData = {
         line_items: checkoutToken?.line_items,
@@ -43,7 +42,7 @@ const PaymentForm = (paymentInterface:IPaymentForm) => {
           },
         },
       };
-    //   console.log(orderData);
+
       try{
         onCaptureCheckout(checkoutToken?.id, orderData);
       }catch(error){

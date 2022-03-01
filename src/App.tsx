@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { commerce } from './lib/commerce';
-import {Products, Navbar, Cart,Checkout } from './components';
-import { ICart, IOrder, IProductItem } from './interfaces';
+import {Products, Navbar, Cart,Checkout, ProductDetail, Categories, Home } from './components';
+import { ICart, ICategory, IOrder, IProductItem } from './interfaces';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 function App() {
   const [products, setProducts] = useState<IProductItem[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [cart, setCart] = useState<ICart>({
     id:'',
     total_items:0,
@@ -17,12 +19,17 @@ function App() {
       formatted_with_code:'0'
     }
   });
+
   const [order, setOrder] = useState<IOrder>();
   const [errorMessage, setErrorMessage] = useState('');
-
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
     setProducts(data);
+  }
+
+  const fetchCategories = async () => {
+    const {data} = await commerce.categories.list();
+    setCategories(data);
   }
 
   const fetchCart = async () => {
@@ -30,8 +37,8 @@ function App() {
     setCart(data);
   }
 
-  const handleAddToCart = async (productId:string, quantity:number) =>{
-    const item = await commerce.cart.add(productId, quantity);
+  const handleAddToCart = async (productId:string, quantity:number,variant:any) =>{
+    const item = await commerce.cart.add(productId, quantity,Object.fromEntries(variant));
     setCart(item.cart);
   }
 
@@ -68,8 +75,9 @@ function App() {
   };
 
   useEffect(()=>{
-    fetchProducts();
     fetchCart();
+    fetchCategories();
+    fetchProducts();
   },[]);
 
 
@@ -77,12 +85,20 @@ function App() {
     <Router>
     <div className="App">
       <main>
-        <Navbar cartCount={cart?.total_items} />
+        <Navbar cartCount={cart?.total_items} categories={categories} />
         <Routes>
           <Route path="/" element={
+            <Home products={products} />
+            } />
+          <Route path="/category" element={
+          <Categories categories={categories} />
+          } />
+          <Route path="/:category/product" element={
           <Products products={products} onAddToCart={handleAddToCart} />
           } />
-
+          <Route path="/product/:id" element={
+            <ProductDetail onAddToCart={handleAddToCart} />
+          } />
           <Route path="/cart" element={
           <Cart cart={cart} EmptyCart={handleEmptyCart} onUpdateQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} />
           } />

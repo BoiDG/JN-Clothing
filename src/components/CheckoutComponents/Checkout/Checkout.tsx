@@ -47,7 +47,6 @@ const Checkout = (CheckOutDetail:ICheckOut) => {
 
   const saveAddressData = (data:any) => {
     setShippingData(data);
-    console.log(shippingData)
     nextStep();
   };
 

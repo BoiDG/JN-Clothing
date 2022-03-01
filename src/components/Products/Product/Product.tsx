@@ -3,6 +3,7 @@ import {Card, CardMedia, CardContent, CardActions, Typography, IconButton} from 
 import { AddShoppingCart } from '@material-ui/icons'
 import { IProductItem } from '../../../interfaces';
 import useStyles from './styles';
+import { Link } from 'react-router-dom';
 
 interface IProduct{
   product : IProductItem;
@@ -13,8 +14,8 @@ function Product(item:IProduct) {
   const styles = useStyles();
 
   return (
-    <Card className={styles.root}>
-      <CardMedia className={styles.media} image ={item.product.image.url} title={item.product.name} />
+    <Card className={styles.root} >
+      <CardMedia component={Link} to={`/product/${item.product.id}`} className={styles.media} image ={item.product.image.url} title={item.product.name} />
        <CardContent>
         <div className = {styles.cardContent}>
           <Typography variant='h5' >
@@ -30,7 +31,7 @@ function Product(item:IProduct) {
         
       </CardContent> 
       
-      <CardActions disableSpacing className={styles.cardActions}>
+      {/* <CardActions disableSpacing className={styles.cardActions}>
       <input className = {styles.cardDesc + " " + styles.inputQty} type="number" onChange={(e)=> {
           e.target.value = (e.target.value < '0') ? '0' : e.target.value;
           setQuantity(parseInt(e.target.value));
@@ -38,11 +39,9 @@ function Product(item:IProduct) {
         <IconButton aria-label="Add to Cart" onClick={()=> item.onAddToCart(item.product.id, quantity)}>
           <AddShoppingCart />
         </IconButton>
-      </CardActions>
+      </CardActions> */}
     </Card>
   )
 }
-
-
 
 export default Product

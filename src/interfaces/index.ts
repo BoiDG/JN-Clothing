@@ -20,10 +20,40 @@ export interface IProductItem{
     image: Image;
     line_total:IPrice;
     quantity:number;
+    categories:ICategory[];
+    variant_groups:IVariant[];
+    assets:Image[];
+    selected_options:IVariantCart[];
     // variant : IVariantItem;
 }
 // -- end --
 
+interface IVariantCart{
+    group_id:string;
+    group_name:string;
+    option_id:string;
+    option_name:string;
+}
+
+export interface ICategory{
+    id:string;
+    description:string;
+    name:string;
+    slug:string;
+    products:number;
+}
+
+export interface IVariant{
+    id:string;
+    name:string;
+    options:IOption[];
+}
+
+interface IOption{
+    id:string;
+    name:string;
+    price: IPrice;
+}
 // -- cart model --
 export interface ICart{
     id:string;
@@ -42,6 +72,8 @@ export interface IShippingMethods{
     description:string;
     price:IPrice;
 }
+
+
 export interface IOrder{
     id:string;
     cart_id:string;
@@ -68,9 +100,5 @@ export interface IShippingInfo{
     shippingOption:string;
 }
 
-export interface IVariantItem{
-    key:string;
-    text:string;
-    value:string;
-}
+
 
