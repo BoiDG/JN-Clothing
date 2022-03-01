@@ -15,13 +15,13 @@ function Category(categoryData:ICategoryItem) {
   return (
     <Card className={styles.root} >
       {/* <CardMedia className={styles.media} image ={item.image.url} title={item.name} /> */}
-       <CardContent component={Link} to={`/${item.slug}/product`}>
-        <div className = {styles.cardContent}>
+       <CardContent component={Link} to={`/${item.slug}/product`} style={{textDecoration:'none'}}>
+        <div className = {styles.cardContent} style={{paddingLeft:1}}>
           <Typography variant='h5' >
             {item.name} 
           </Typography>
         </div> 
-        <Typography variant='subtitle1' className = {styles.cardDesc} >
+        <Typography variant='subtitle1' className = {styles.cardDesc}>
             {item.description.replace(/<[^>]*>?/gm, '')} 
         </Typography>
         

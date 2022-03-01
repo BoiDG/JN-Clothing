@@ -52,7 +52,7 @@ export default makeStyles(()=>({
         },
         image: {
           width:'50em',
-          maxWidth:'130%',
+          maxWidth:'90%',
           marginTop:'3em',
           marginLeft:'3em',
           borderRadius: '5px',
@@ -94,7 +94,7 @@ export default makeStyles(()=>({
           justifyContent:'flex-end'
         },
         description:{
-          width:'100%',
+          width:'30%',
           paddingLeft:'3em',
           alignItems:'flex-start'
         },
