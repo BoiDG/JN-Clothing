@@ -43,7 +43,7 @@ function ProductDetail(item:IProductDetail) {
         <div className={styles.description}>
         <Typography style={{ paddingTop:'1em',textAlign:'left'}}variant="h4"> {product.name} </Typography>
         <Typography style={{ textAlign:'left'}} variant="h6"> {product.price.formatted_with_symbol}  </Typography>
-        <Typography style={{ paddingTop:'1em',textAlign:'left'}} variant="subtitle1"> {product.description.replace(/<[^>]*>?/gm, '')} </Typography>
+        
         
         <CardActions disableSpacing className={styles.cardActionsDetails}>
             <Grid className={styles.sizeInput} item xs={12} sm={6}>
@@ -72,6 +72,8 @@ function ProductDetail(item:IProductDetail) {
         </Typography> <AddShoppingCart />
         </Button>
       </CardActions>
+
+      <Typography style={{ paddingTop:'1em',textAlign:'left'}} variant="subtitle1"> {product.description.replace(/<[^>]*>?/gm, '')} </Typography>
         </div>
         
     </div>

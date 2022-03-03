@@ -27,11 +27,15 @@ export default makeStyles(()=>({
         },
         media: {
          height:0,
-         paddingTop:'56.25%'
+         paddingTop:'100.25%'
         },
         cardContent: {
           display:'flex',
-          justifyContent:'space-between'
+          justifyContent:'center'
+        },
+        cardContentPrice: {
+          display:'flex',
+          justifyContent:'center'
         },
         cardActions:{
           display:'flex',
@@ -61,7 +65,7 @@ export default makeStyles(()=>({
         },
         imageSmol : {
           width:'7em',
-          height:'4em',
+          height:'8em',
           marginTop:'1em',
           marginLeft:'1em',
           maxWidth: '25%',
@@ -94,21 +98,16 @@ export default makeStyles(()=>({
           justifyContent:'flex-end'
         },
         description:{
-          width:'30%',
+          width:'90%',
           paddingLeft:'3em',
           alignItems:'flex-start'
         },
         sizeInput:{ 
-          width:'25%',
+          width:'30%',
           display:'flex',
           flexFlow:'column',
           marginBottom:'1em',
           alignItems:'flex-start'
-        },
-        spinner: {
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
         },
         MuiCardActionsRoot : {
           alignItems: 'flex-start',

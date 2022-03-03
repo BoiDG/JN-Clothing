@@ -18,16 +18,21 @@ function Product(item:IProduct) {
       <CardMedia component={Link} to={`/product/${item.product.id}`} className={styles.media} image ={item.product.image.url} title={item.product.name} />
        <CardContent>
         <div className = {styles.cardContent}>
-          <Typography variant='h5' >
+          <Typography variant='h4' >
             {item.product.name} 
           </Typography>
-          <Typography variant='h6' >
+          {/* <Typography variant='h6' >
+            {item.product.price.formatted_with_symbol} 
+          </Typography> */}
+        </div> 
+        <div className = {styles.cardContentPrice}>
+        <Typography variant='h6' >
             {item.product.price.formatted_with_symbol} 
           </Typography>
-        </div> 
-        <Typography variant='subtitle1' className = {styles.cardDesc} >
+        </div>
+        {/* <Typography variant='subtitle1' className = {styles.cardDesc} >
             {item.product.description.replace(/<[^>]*>?/gm, '')} 
-        </Typography>
+        </Typography> */}
         
       </CardContent> 
       
