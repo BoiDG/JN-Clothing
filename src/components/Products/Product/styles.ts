@@ -7,6 +7,7 @@ export default makeStyles(()=>({
           marginInline:'auto',
           boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
           transition: 'all 0.3s ease-in-out',
+          alignItems: 'flex-start',
           '&::after': {
             content: '',
             position: 'absolute',
@@ -99,7 +100,7 @@ export default makeStyles(()=>({
         },
         description:{
           width:'90%',
-          paddingLeft:'3em',
+          paddingInline:'3em',
           alignItems:'flex-start'
         },
         sizeInput:{ 
@@ -108,8 +109,5 @@ export default makeStyles(()=>({
           flexFlow:'column',
           marginBottom:'1em',
           alignItems:'flex-start'
-        },
-        MuiCardActionsRoot : {
-          alignItems: 'flex-start',
         }
 }));

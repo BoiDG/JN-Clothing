@@ -21,9 +21,7 @@ function Product(item:IProduct) {
           <Typography variant='h4' >
             {item.product.name} 
           </Typography>
-          {/* <Typography variant='h6' >
-            {item.product.price.formatted_with_symbol} 
-          </Typography> */}
+
         </div> 
         <div className = {styles.cardContentPrice}>
         <Typography variant='h6' >

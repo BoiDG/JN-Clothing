@@ -45,11 +45,11 @@ function ProductDetail(item:IProductDetail) {
         <Typography style={{ textAlign:'left'}} variant="h6"> {product.price.formatted_with_symbol}  </Typography>
         
         
-        <CardActions disableSpacing className={styles.cardActionsDetails}>
+        <CardActions style={{alignItems: 'flex-start'}} disableSpacing className={styles.cardActionsDetails}>
             <Grid className={styles.sizeInput} item xs={12} sm={6}>
             <InputLabel style={{ paddingBottom:'.2em'}}> Quantity </InputLabel>
             <Input style={{ marginBottom:'1em'}} className = {styles.cardDesc + " " + styles.inputQty} type="number" onChange={(e)=> {
-                e.target.value = (e.target.value < '0') ? '0' : e.target.value;
+                e.target.value = (e.target.value < '0') ? ' ' : e.target.value;
                 setQuantity(parseInt(e.target.value));
             }} value = {quantity}/>
             </Grid>
@@ -72,8 +72,11 @@ function ProductDetail(item:IProductDetail) {
         </Typography> <AddShoppingCart />
         </Button>
       </CardActions>
-
-      <Typography style={{ paddingTop:'1em',textAlign:'left'}} variant="subtitle1"> {product.description.replace(/<[^>]*>?/gm, '')} </Typography>
+     
+        <Typography style={{paddingTop:'1em',textAlign:'left'}} noWrap variant="subtitle1"> {product.description.replace(/<[^>]*>?/gm, '')} </Typography>
+  
+    
+      
         </div>
         
     </div>
