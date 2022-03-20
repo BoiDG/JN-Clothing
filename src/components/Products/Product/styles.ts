@@ -99,12 +99,12 @@ export default makeStyles(()=>({
           justifyContent:'flex-end'
         },
         description:{
-          width:'90%',
+          width:'60%',
           paddingInline:'3em',
           alignItems:'flex-start'
         },
         sizeInput:{ 
-          width:'30%',
+          width:'40%',
           display:'flex',
           flexFlow:'column',
           marginBottom:'1em',

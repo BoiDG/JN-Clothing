@@ -18,7 +18,13 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
   },
   image: {
-    marginRight: '10px',
+    width:'50em',
+    maxWidth:'90%',
+    marginTop:'3em',
+    marginLeft:'3em',
+    borderRadius: '5px',
+    backgroundColor: '#fff',
+    boxShadow: '0 1px 2px rgba(0,0,0,0.15)'
   },
   menuButton: {
     marginRight: theme.spacing(2),

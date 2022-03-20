@@ -27,11 +27,13 @@ function Narvbar(navbarData:INavbarItem) {
     <>
         <AppBar position="fixed" color="inherit" className = {styles.appBar}>
             <Toolbar>
-                <Typography component={Link} to="/" className = {styles.title} variant="h6" color="inherit">
-                    JNB Clothing
-                </Typography>
                 
-                <div style={{flexGrow: 1,display:'flex',justifyContent:'flexStart',marginLeft:'2em'}}>
+            <Typography component={Link} to="/" className = {styles.title} variant="h6" color="inherit">
+                    JNB
+            </Typography>
+
+
+                <div style={{display:'flex',justifyContent:'space-between'}}>
                   <Button
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}
@@ -56,6 +58,22 @@ function Narvbar(navbarData:INavbarItem) {
                     ))}
                   </Menu>
                 </div>
+
+                <div style={{display:'flex',justifyContent:'space-between'}}>
+                  <Button
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                  >
+                    Collection
+                  </Button>
+        
+                </div>
+
+
+               
                 <div className={styles.grow}></div>
                 <div className={styles.menuButton}></div>
                 <IconButton component={Link} to="/cart" aira-label="">

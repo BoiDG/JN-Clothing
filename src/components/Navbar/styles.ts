@@ -4,8 +4,9 @@ const drawerWidth = 0;
 
 export default makeStyles((theme) => ({
   appBar: {
-    boxShadow: 'none',
+    boxShadow: '5px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    backgroundColor: 'rgba(255,140,0)',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
@@ -14,6 +15,7 @@ export default makeStyles((theme) => ({
   title: {
     // flexGrow: 1,
     alignItems: 'center',
+    flexGrow: 1,
     display: 'flex',
     textDecoration: 'none',
   },

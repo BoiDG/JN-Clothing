@@ -4,6 +4,8 @@ import { commerce } from './lib/commerce';
 import {Products, Navbar, Cart,Checkout, ProductDetail, Categories, Home } from './components';
 import { ICart, ICategory, IOrder, IProductItem } from './interfaces';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import Announcement from './components/Announcement/Announcement';
+
 
 
 function App() {
@@ -85,6 +87,7 @@ function App() {
     <Router>
     <div className="App">
       <main>
+        {/* <Announcement/> */}
         <Navbar cartCount={cart?.total_items} categories={categories} />
         <Routes>
           <Route path="/" element={
@@ -111,6 +114,8 @@ function App() {
     </div>
     </Router>
   );
+
+
 }
 
 export default App;

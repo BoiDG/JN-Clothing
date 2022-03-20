@@ -57,7 +57,7 @@ function ProductDetail(item:IProductDetail) {
             {product.variant_groups.map((variant_groups)=>(
                     <Grid className={styles.sizeInput} justifyContent="flex-start" item xs={12} sm={6} >
                     <InputLabel style={{ paddingBottom:'.2em'}}> {variant_groups.name} </InputLabel>
-                    <Select style={{ width:'25%'}} value={variant.get(variant_groups.id)} fullWidth onChange={(e:any) => setVariant(new Map<string,string>(variant.set(variant_groups.id,e.target.value)))}>
+                    <Select style={{ width:'20%'}} value={variant.get(variant_groups.id)} fullWidth onChange={(e:any) => setVariant(new Map<string,string>(variant.set(variant_groups.id,e.target.value)))}>
                     {variant_groups.options.map((item) => (
                         <MenuItem key={item.id} value={item.id}>
                         {item.name}
@@ -72,11 +72,9 @@ function ProductDetail(item:IProductDetail) {
         </Typography> <AddShoppingCart />
         </Button>
       </CardActions>
-     
-        <Typography style={{paddingTop:'1em',textAlign:'left'}} noWrap variant="subtitle1"> {product.description.replace(/<[^>]*>?/gm, '')} </Typography>
-  
-    
-      
+
+        <Typography style={{paddingTop:'1em',textAlign:'left'}} dangerouslySetInnerHTML={{ __html: product.description}} />
+
         </div>
         
     </div>
