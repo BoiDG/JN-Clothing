@@ -3,7 +3,7 @@ import {CircularProgress, Grid, Typography} from '@material-ui/core';
 import Product from './Product/Product';
 import { IProductItem } from '../../interfaces';
 import { commerce } from '../../lib/commerce';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 interface IProducts{
     products : IProductItem[];
@@ -16,10 +16,12 @@ const Products = (productsInterface:IProducts) =>{
     const [products, setProducts] = useState(productsInterface.products);
     const [loading, setLoading] = useState(false);
     const category = useParams().category;
+
     const fetchProducts = async (slug:string) => {
         const { data } = await commerce.products.list({
-            category_slug:  [slug]
+            category_slug:  ['clothing']
           });
+          console.log(data);
         setProducts(data);
     }
 
@@ -37,10 +39,16 @@ const Products = (productsInterface:IProducts) =>{
             setProducts(productsInterface.products);
         }
     },[category])
+    console.log(category);
     return ( loading ? (
-        <>
-        <Typography variant="h6" gutterBottom> category </Typography>
+        <div>
+        <Typography style={{
+            textDecoration:'none',
+          color:'grey',
+          marginTop:'10em'
+          }} component={Link} to={`/category`}>category</Typography>/
         <Grid container justify="center" spacing={1}>
+        
             {
                 products.map((product) => (
                     <Grid style={{marginInline:'auto'}} item key={product.id} xs={12} sm={6} md={4} lg={3}>
@@ -50,7 +58,7 @@ const Products = (productsInterface:IProducts) =>{
             }
             {/* <Pagination count={10} color="primary" /> */}
         </Grid>
-        </>) : (
+        </div>) : (
     <div style={{
         display: 'flex',
         justifyContent: 'center',

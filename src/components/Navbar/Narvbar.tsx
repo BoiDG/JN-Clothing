@@ -32,7 +32,16 @@ function Narvbar(navbarData:INavbarItem) {
                     JNB
             </Typography>
 
-
+            <div style={{display:'flex',justifyContent:'space-between'}}>
+                  <Button
+                    id="basic-button"
+                    component={Link} to={`/newArrival/product`}
+                  >
+                    Collection
+                  </Button>
+        
+                </div>
+                <span style={{marginBottom:'.2em',fontSize:'1.15rem'}}>|</span>
                 <div style={{display:'flex',justifyContent:'space-between'}}>
                   <Button
                     id="basic-button"
@@ -53,33 +62,24 @@ function Narvbar(navbarData:INavbarItem) {
                     }}
                   >
                     <MenuItem component={Link} to="/category">All</MenuItem>
-                    {navbarData.categories.map((category)=>(
-                      <MenuItem component={Link} to={`/${category.slug}/product`} >{category.name}</MenuItem>
-                    ))}
+                    {navbarData.categories.filter((category)=> {return category.name !="newArrival"}).map((category)=>(
+                     <MenuItem component={Link} to={`/${category.slug}/product`} >{category.name}</MenuItem>
+                     )
+                    )}
                   </Menu>
                 </div>
 
-                <div style={{display:'flex',justifyContent:'space-between'}}>
-                  <Button
-                    id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
-                  >
-                    Collection
-                  </Button>
-        
-                </div>
+                
 
 
                
                 <div className={styles.grow}></div>
                 <div className={styles.menuButton}></div>
-                <IconButton component={Link} to="/cart" aira-label="">
-                  <Badge badgeContent={navbarData.cartCount} color="secondary"> </Badge>
-                  <ShoppingCart />
-                </IconButton>
+                <Button component={Link} to="/cart" aira-label="">
+                <ShoppingCart style={{fontSize:'1.6rem'}} />
+                  <Badge style={{fontSize:'.5rem'}}badgeContent={navbarData.cartCount} color="secondary"> </Badge>
+                  
+                </Button>
             </Toolbar>
         </AppBar>
     </>

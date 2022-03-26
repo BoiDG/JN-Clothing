@@ -14,25 +14,14 @@ function Product(item:IProduct) {
   const styles = useStyles();
 
   return (
+    <>
     <Card className={styles.root} >
       <CardMedia component={Link} to={`/product/${item.product.id}`} className={styles.media} image ={item.product.image.url} title={item.product.name} />
-       <CardContent>
-        <div className = {styles.cardContent}>
-          <Typography variant='h4' >
-            {item.product.name} 
-          </Typography>
-
-        </div> 
-        <div className = {styles.cardContentPrice}>
-        <Typography variant='h6' >
-            {item.product.price.formatted_with_symbol} 
-          </Typography>
-        </div>
+        
         {/* <Typography variant='subtitle1' className = {styles.cardDesc} >
             {item.product.description.replace(/<[^>]*>?/gm, '')} 
         </Typography> */}
-        
-      </CardContent> 
+
       
       {/* <CardActions disableSpacing className={styles.cardActions}>
       <input className = {styles.cardDesc + " " + styles.inputQty} type="number" onChange={(e)=> {
@@ -44,6 +33,18 @@ function Product(item:IProduct) {
         </IconButton>
       </CardActions> */}
     </Card>
+    <div className = {styles.cardContent}>
+    <Typography variant='h4' style={{ textAlign:'center',fontFamily: "Montserrat",paddingTop:'.25em'}}>
+      {item.product.name} 
+    </Typography>
+
+  </div> 
+  <div className = {styles.cardContentPrice}>
+  <Typography variant='subtitle1'  style={{ color:'grey',fontFamily: "Montserrat"}}>
+      {item.product.price.formatted_with_symbol} 
+    </Typography>
+  </div>
+  </>
   )
 }
 

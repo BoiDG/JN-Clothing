@@ -8,15 +8,15 @@ interface ICategoryTab{
 }
 
 function Categories(categoryInterface:ICategoryTab) {
-    console.log(categoryInterface.categories);
+
   return (
-    <Grid style={{marginTop:'5em'}} container justify="center" spacing={1}>
+    <>
         {categoryInterface.categories.map((category)=>(
-        <Grid style={{marginInline:'auto'}} item key={category.id} xs={12} sm={6} md={4} lg={3}>
+        <Grid style={{display:'flex',flexFlow:'column',width:'100%'}} item key={category.id}>
             <Category category={category} />
         </Grid>
         ))}
-    </Grid>
+    </>
   )
 }
 

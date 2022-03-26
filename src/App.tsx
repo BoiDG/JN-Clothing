@@ -5,10 +5,13 @@ import {Products, Navbar, Cart,Checkout, ProductDetail, Categories, Home } from 
 import { ICart, ICategory, IOrder, IProductItem } from './interfaces';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import Announcement from './components/Announcement/Announcement';
-
+import "@fontsource/montserrat"; 
+import useStyles from './style';
 
 
 function App() {
+  const styles = useStyles();
+  
   const [products, setProducts] = useState<IProductItem[]>([]);
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [cart, setCart] = useState<ICart>({
@@ -86,7 +89,7 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <main>
+      <main className={styles.root}>
         {/* <Announcement/> */}
         <Navbar cartCount={cart?.total_items} categories={categories} />
         <Routes>
@@ -119,3 +122,4 @@ function App() {
 }
 
 export default App;
+

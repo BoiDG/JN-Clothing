@@ -41,6 +41,7 @@ export interface ICategory{
     name:string;
     slug:string;
     products:number;
+    assets:Image[];
 }
 
 export interface IVariant{

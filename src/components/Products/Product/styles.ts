@@ -4,6 +4,7 @@ export default makeStyles(()=>({
         root: {
           marginTop:'5em',
           maxWidth: '90%',
+          width:'90em',
           marginInline:'auto',
           boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
           transition: 'all 0.3s ease-in-out',
@@ -24,6 +25,13 @@ export default makeStyles(()=>({
               '&::after': {
                 opacity: 1
             }
+          }
+        },
+        urlText : {
+          textDecoration:'none',
+          color:'grey',
+          '&:hover':{
+            textDecoration: 'underline'
           }
         },
         media: {
@@ -104,10 +112,11 @@ export default makeStyles(()=>({
           alignItems:'flex-start'
         },
         sizeInput:{ 
-          width:'40%',
+          width:'10em',
           display:'flex',
-          flexFlow:'column',
-          marginBottom:'1em',
-          alignItems:'flex-start'
+          flexFlow:'row',
+          justifyContent:'space-between',
+          marginBottom:'.5em',
+          alignItems:'flex-end',
         }
 }));
