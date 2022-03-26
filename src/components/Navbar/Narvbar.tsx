@@ -28,7 +28,7 @@ function Narvbar(navbarData:INavbarItem) {
         <AppBar position="fixed" color="inherit" className = {styles.appBar}>
             <Toolbar>
                 
-            <Typography component={Link} to="/" className = {styles.title} variant="h6" color="inherit">
+            <Typography component={Link} to="/" className = {styles.title} variant="h4" color="inherit">
                     JNB
             </Typography>
 

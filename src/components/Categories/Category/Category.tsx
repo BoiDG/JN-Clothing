@@ -15,19 +15,17 @@ function Category(categoryData:ICategoryItem) {
   return (
     <>
     
-    <Card className={styles.root} style={{width:'100%'}}>
-      <CardMedia component={Link} to={`/${item.slug}/product`}className={styles.media} image ={item.assets[0].url} title={item.name} />
-      
-      </Card>
-      <div style={{width:'100%',color:'white',backgroundColor:'black'}}>
-      <Typography className = {styles.cardContent} variant='h5' >
+    <Card  className={styles.root} title={item.name} style={{width:'100%',backgroundImage:`linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url("${item.assets[0].url}")`,backgroundSize:'cover',backgroundPosition:'center center'}}>
+      <CardContent component={Link} to={`/${item.slug}/product`} style={{fontSize:'4rem',textDecoration:'none',color:'white',fontFamily: "Montserrat"}}>
+  <Typography className = {styles.cardDesc} variant='h5' style={{fontSize:'6rem',fontWeight:'800'}}>
         {item.name} 
       </Typography>
 
-    <Typography variant="subtitle1" className = {styles.cardDesc}>
+    <Typography variant="subtitle1" className = {styles.cardDesc} style={{fontSize:'1.7rem',lineHeight:'0'}}>
         {item.description.replace(/<[^>]*>?/gm, '')} 
     </Typography>
-      </div>
+      </CardContent>
+      </Card>
     </>
   )
 }

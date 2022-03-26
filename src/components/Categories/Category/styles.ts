@@ -1,9 +1,9 @@
 import { makeStyles} from '@material-ui/core/styles';
-
+import "@fontsource/montserrat"; 
 
 export default makeStyles(() => ({
     root: {
-        marginTop:'5em',
+        marginTop:'3em',
         maxWidth: '90%',
         marginInline:'auto',
         boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
@@ -19,12 +19,7 @@ export default makeStyles(() => ({
           boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
           transition: 'opacity 0.3s ease-in-out'
         },
-        '&:hover':{
-            transform: 'scale(1.1, 1.1)',
-            '&::after': {
-              opacity: 1
-          }
-        }
+        
       },
       media: {
        height:0,
@@ -40,7 +35,16 @@ export default makeStyles(() => ({
       },
       cardDesc:{
         display:'flex',
-        justifyContent:'flex-start'
+        justifyContent:'center',
+        textDecoration:'none',
+        fontFamily: "Montserrat",
+        transition: 'all 0.3s ease-in-out',
+        '&:hover':{
+          transform: 'scale(1.1, 1.1)',
+          '&::after': {
+            opacity: 1
+        }
+      }
       },
       inputQty:{
         width:'3em'

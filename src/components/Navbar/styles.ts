@@ -18,6 +18,8 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
     display: 'flex',
     textDecoration: 'none',
+    fontFamily: "Montserrat",
+    fontWeight:800
   },
   image: {
     marginRight: '10px',

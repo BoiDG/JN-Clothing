@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Container, Typography, Button, Grid} from '@material-ui/core'
 import { ICart } from '../../interfaces';
 import useStyles from './styles';
@@ -15,7 +15,7 @@ interface ICartDetail{
 
 function Cart(cartDetail:ICartDetail) {
     const styles = useStyles();
-  
+    const [cartLength,setcartLength] = useState(cartDetail.cart.line_items.length);
   const EmptyCart = () => (
       <Typography variant="subtitle1"> Your cart is empty </Typography>
   )
@@ -30,7 +30,7 @@ function Cart(cartDetail:ICartDetail) {
             ))}
         </Grid>
         <div className={styles.cardDetails}>
-            <Typography variant="h6">
+            <Typography variant="h6" style={{fontFamily: "Montserrat"}}>
                 Subtotal: {cartDetail.cart.subtotal.formatted_with_symbol}
             </Typography>
             <CartButtons />
@@ -56,7 +56,7 @@ function Cart(cartDetail:ICartDetail) {
         <Typography variant="h4" className={styles.title}>
             Your shopping cart
         </Typography>
-        {!cartDetail.cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+        {!cartLength ? <EmptyCart /> : <FilledCart />}
     </Container>
   )
 }

@@ -12,7 +12,7 @@ interface IProduct{
 function Product(item:IProduct) {
   const [quantity,setQuantity] = useState(1);
   const styles = useStyles();
-
+  console.log(item)
   return (
     <>
     <Card className={styles.root} >

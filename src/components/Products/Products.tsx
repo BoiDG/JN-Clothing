@@ -4,6 +4,8 @@ import Product from './Product/Product';
 import { IProductItem } from '../../interfaces';
 import { commerce } from '../../lib/commerce';
 import { Link, useParams } from 'react-router-dom';
+import useStyles from './Product/styles';
+import ReactPaginate from 'react-paginate';
 
 interface IProducts{
     products : IProductItem[];
@@ -13,56 +15,39 @@ interface IProducts{
 
 
 const Products = (productsInterface:IProducts) =>{
-    const [products, setProducts] = useState(productsInterface.products);
-    const [loading, setLoading] = useState(false);
+    const [products, setProducts] = useState<IProductItem[]>(productsInterface.products);
     const category = useParams().category;
+    const styles = useStyles();
+    
 
-    const fetchProducts = async (slug:string) => {
-        const { data } = await commerce.products.list({
-            category_slug:  ['clothing']
-          });
-          console.log(data);
-        setProducts(data);
-    }
+    return ( products ? (
+        <div style={{textAlign:'left',paddingTop:'7em',width:'98%',marginInline:'auto'}}>
 
-    const timeout = () =>{
-        setTimeout(() =>{
-        setLoading(true);
-        },2000);
-    }
-
-    useEffect(()=>{
-        timeout();
-        if(category!=='all'){
-            fetchProducts(category as string);
-        }else{
-            setProducts(productsInterface.products);
-        }
-    },[category])
-    console.log(category);
-    return ( loading ? (
-        <div>
-        <Typography style={{
-            textDecoration:'none',
-          color:'grey',
-          marginTop:'10em'
+        <Typography className={styles.urlText} style={{
+          marginTop:'2em',
+          textAlign:'left',
+          paddingLeft:'5em'
           }} component={Link} to={`/category`}>category</Typography>/
+          
         <Grid container justify="center" spacing={1}>
         
             {
-                products.map((product) => (
+                products.filter((product) => (product.categories[0].slug==category)).map((product) => (
                     <Grid style={{marginInline:'auto'}} item key={product.id} xs={12} sm={6} md={4} lg={3}>
                         <Product onAddToCart={productsInterface.onAddToCart} product={product} />
                     </Grid>
                 ))
             }
             {/* <Pagination count={10} color="primary" /> */}
+            
         </Grid>
         </div>) : (
     <div style={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',}}>
+        alignItems: 'center',
+        paddingTop:'8em'
+        }}>
       <CircularProgress />
     </div>
   )

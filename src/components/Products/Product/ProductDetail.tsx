@@ -83,7 +83,7 @@ function ProductDetail(item:IProductDetail) {
             justifyContent:'center',
             marginTop:'3em'
         }}
-    aria-label="Add to Cart" variant="contained" onClick={()=> item.onAddToCart(productId.id as string, quantity,variant)}>
+    aria-label="Add to Cart" variant="contained" onClick={()=> item.onAddToCart(product, quantity,variant)}>
           <Typography variant="subtitle1" style={{fontSize:'1.5rem'}}>
           Add to Cart &nbsp;&nbsp;
         </Typography> 

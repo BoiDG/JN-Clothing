@@ -41,25 +41,51 @@ function App() {
     const data = await commerce.cart.retrieve();
     setCart(data);
   }
+  const updateHandleAddToCartUI = (product:IProductItem, quantity:number,variant:any) =>{
+    product.quantity = quantity;
+    if( product.variant_groups.length>0){
+      product.variant_groups[0].options = [variant];
+    }
+    cart.line_items.push(product);
+    if(cart.total_items){
+      cart.total_items += quantity;
+    }
+    setCart(cart);
+  }
+  const handleAddToCart = async (product:IProductItem, quantity:number,variant:any) =>{
+    commerce.cart.add(product.id, quantity,Object.fromEntries(variant));
 
-  const handleAddToCart = async (productId:string, quantity:number,variant:any) =>{
-    const item = await commerce.cart.add(productId, quantity,Object.fromEntries(variant));
-    setCart(item.cart);
+    await updateHandleAddToCartUI(product,quantity,variant);
+
+    
   }
 
   const handleUpdateCartQty = async (lineItemId:string, quantity:number) => {
-    const response = await commerce.cart.update(lineItemId, { quantity });
-    setCart(response.cart);
+    commerce.cart.update(lineItemId, { quantity });
+    cart.line_items.filter((item)=>(item.id === lineItemId)).map((item)=>{
+      item.quantity = quantity;
+    })
+    var sum =0;
+    cart.line_items.forEach((e)=>{sum+=e.quantity})
+    cart.total_items = sum;
+    setCart(cart);
   };
 
   const handleRemoveFromCart = async (lineItemId:string) => {
-    const response = await commerce.cart.remove(lineItemId);
-    setCart(response.cart);
+    commerce.cart.remove(lineItemId);
+    console.log(cart);
+    if(cart.total_items){
+      cart.total_items -= cart.line_items.filter((item)=>(item.id === lineItemId))[0].quantity;
+      cart.line_items = cart.line_items.filter((item)=>(item.id !== lineItemId));
+    }
+    console.log(cart);
+    setCart(cart);
   };
 
   const handleEmptyCart = async () => {
-    const response = await commerce.cart.empty();
-    setCart(response.cart);
+    commerce.cart.empty();
+    cart.line_items = [];
+    setCart(cart);
   };
 
   const refreshCart = async () => {
