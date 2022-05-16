@@ -5,7 +5,7 @@ import { IProductItem } from '../../interfaces';
 import { commerce } from '../../lib/commerce';
 import { Link, useParams } from 'react-router-dom';
 import useStyles from './Product/styles';
-import ReactPaginate from 'react-paginate';
+// import ReactPaginate from 'react-paginate';
 
 interface IProducts{
     products : IProductItem[];

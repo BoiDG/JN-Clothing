@@ -1,12 +1,15 @@
 import { makeStyles} from '@material-ui/core/styles';
 import "@fontsource/montserrat"; 
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
     root: {
         marginTop:'3em',
         maxWidth: '90%',
         marginInline:'auto',
         boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
+        [theme.breakpoints.down("sm")]: {
+          height: '50%'
+        },
         transition: 'all 0.3s ease-in-out',
         '&::after': {
           content: '',
@@ -37,7 +40,11 @@ export default makeStyles(() => ({
         display:'flex',
         justifyContent:'center',
         textDecoration:'none',
+        fontSize:'6rem',
         fontFamily: "Montserrat",
+        [theme.breakpoints.down("sm")]: {
+          fontSize: "4rem"
+        },
         transition: 'all 0.3s ease-in-out',
         '&:hover':{
           transform: 'scale(1.1, 1.1)',
@@ -45,6 +52,7 @@ export default makeStyles(() => ({
             opacity: 1
         }
       }
+      
       },
       inputQty:{
         width:'3em'

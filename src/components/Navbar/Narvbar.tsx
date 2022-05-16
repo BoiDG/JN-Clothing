@@ -1,5 +1,5 @@
 import React from 'react'
-import {AppBar, Toolbar, IconButton, Badge, MenuItem,Menu,Button, Typography, alpha } from '@material-ui/core'
+import {AppBar, Toolbar, IconButton, Badge, MenuItem,Menu,Button, Typography, alpha, makeStyles } from '@material-ui/core'
 import { ShoppingCart } from '@material-ui/icons';
 import useStyles from './styles';
 import { Link, useLocation } from 'react-router-dom';
@@ -31,6 +31,10 @@ function Narvbar(navbarData:INavbarItem) {
             <Typography component={Link} to="/" className = {styles.title} variant="h4" color="inherit">
                     JNB
             </Typography>
+
+            {/* <Typography component={Link} to="/" className = {styles.titleSmol} variant="h4" color="inherit">
+                    JNB
+            </Typography> */}
 
             <div style={{display:'flex',justifyContent:'space-between'}}>
                   <Button

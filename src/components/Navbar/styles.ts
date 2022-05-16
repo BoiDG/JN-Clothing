@@ -6,20 +6,33 @@ export default makeStyles((theme) => ({
   appBar: {
     boxShadow: '5px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-    backgroundColor: 'rgba(255,140,0)',
+    backgroundColor: 'rgba(255,165,60)',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
   },
   title: {
-    // flexGrow: 1,
     alignItems: 'center',
     flexGrow: 1,
     display: 'flex',
     textDecoration: 'none',
     fontFamily: "Montserrat",
-    fontWeight:800
+    fontWeight:800,
+    // [theme.breakpoints.up("sm")]: {
+    //   display: "block",
+    // },
+  },
+  titleSmol: {
+    alignItems: 'center',
+    flexGrow: 1,
+    display: 'block',
+    textDecoration: 'none',
+    fontFamily: "Montserrat",
+    fontWeight:800,
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
   },
   image: {
     marginRight: '10px',

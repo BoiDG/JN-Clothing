@@ -17,7 +17,7 @@ function Category(categoryData:ICategoryItem) {
     
     <Card  className={styles.root} title={item.name} style={{width:'100%',backgroundImage:`linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url("${item.assets[0].url}")`,backgroundSize:'cover',backgroundPosition:'center center'}}>
       <CardContent component={Link} to={`/${item.slug}/product`} style={{fontSize:'4rem',textDecoration:'none',color:'white',fontFamily: "Montserrat"}}>
-  <Typography className = {styles.cardDesc} variant='h5' style={{fontSize:'6rem',fontWeight:'800'}}>
+  <Typography style={{fontWeight:'800'}} className = {styles.cardDesc} variant='h5' >
         {item.name} 
       </Typography>
 
