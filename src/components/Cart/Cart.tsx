@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {Container, Typography, Button, Grid} from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import {Container, Typography, Button, Grid, CircularProgress} from '@material-ui/core'
 import { ICart } from '../../interfaces';
 import useStyles from './styles';
 import { Link } from 'react-router-dom';
@@ -11,15 +11,20 @@ interface ICartDetail{
     EmptyCart: Function;
     onUpdateQty:Function;
     onRemoveFromCart:Function;
+    loading:Boolean;
 }
 
 function Cart(cartDetail:ICartDetail) {
     const styles = useStyles();
     const [cartLength,setcartLength] = useState(cartDetail.cart.line_items.length);
-  const EmptyCart = () => (
-      <Typography variant="subtitle1"> Your cart is empty </Typography>
-  )
+    
 
+    const EmptyCart = () => (
+        <Typography variant="subtitle1"> Your cart is empty </Typography>
+    )
+    useEffect(() => {
+      setcartLength(cartDetail.cart.line_items.length)
+      }, [cartDetail.cart.line_items.length]);
   const FilledCart = () => (
       <>
         <Grid container spacing={3}>
@@ -31,12 +36,18 @@ function Cart(cartDetail:ICartDetail) {
         </Grid>
         <div className={styles.cardDetails}>
             <Typography variant="h6" style={{fontFamily: "Montserrat"}}>
-                Subtotal: {cartDetail.cart.subtotal.formatted_with_symbol}
+                Subtotal: {cartDetail.cart.subtotal.formatted_with_symbol ? cartDetail.cart.subtotal.formatted_with_symbol : ''}
             </Typography>
             <CartButtons />
         </div>
       </>
   )
+
+//   const timeout = () =>{
+//     setTimeout(() =>{
+//     setLoading(true);
+//     },3000);
+//   }
 
   const CartButtons = () => (
     <div>
@@ -49,16 +60,20 @@ function Cart(cartDetail:ICartDetail) {
     </div>
   )
 
-  if(!cartDetail.cart.line_items) return (<> Loading... </>);
-
-  return (
+//   if(!cartDetail.cart.line_items) return (<> Loading... </>);
+//     console.log(cartDetail.cart)
+  return (!cartDetail.loading ? (
     <Container>
         <Typography variant="h4" className={styles.title}>
             Your shopping cart
         </Typography>
         {!cartLength ? <EmptyCart /> : <FilledCart />}
     </Container>
-  )
+  ) : (
+    <div style={{marginTop: "7em"}} className={styles.spinner}>
+      <CircularProgress />
+    </div>
+  ))
 }
 
 export default Cart

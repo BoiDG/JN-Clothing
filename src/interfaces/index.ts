@@ -8,6 +8,7 @@ interface Image{
 }
 interface IPrice{
     raw:number;
+    formatted:string;
     formatted_with_symbol:string; // Rp50,000.00
     formatted_with_code:string; // 50,000.00 IDR
 }
@@ -28,7 +29,7 @@ export interface IProductItem{
 }
 // -- end --
 
-interface IVariantCart{
+export interface IVariantCart{
     group_id:string;
     group_name:string;
     option_id:string;
@@ -61,6 +62,7 @@ export interface ICart{
     total_items?:number;
     line_items:IProductItem[];
     subtotal:IPrice;
+    
 }
 // -- end --
 

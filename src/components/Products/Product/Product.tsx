@@ -16,7 +16,8 @@ function Product(item:IProduct) {
   return (
     <>
     <Card className={styles.root} >
-      <CardMedia component={Link} to={`/product/${item.product.id}`} className={styles.media} image ={item.product.image.url} title={item.product.name} />
+      <CardMedia component={Link} to={`/product/${item.product.id}`} 
+      className={styles.media} image ={item.product.image.url} title={item.product.name} />
         
         {/* <Typography variant='subtitle1' className = {styles.cardDesc} >
             {item.product.description.replace(/<[^>]*>?/gm, '')} 

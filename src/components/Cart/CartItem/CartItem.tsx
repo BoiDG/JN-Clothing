@@ -29,7 +29,11 @@ function CartItem(cartItem:ICartItem) {
           </div>
         ))}
         </div>
+        <div style={{display:'flex', flexFlow:'column'}}>
         <Typography variant="h6" style={{fontFamily: "Montserrat"}}>{cartItem.product.line_total.formatted_with_symbol}</Typography>
+        
+        <Typography variant="subtitle1" style={{fontFamily: "Montserrat"}}>{cartItem.product.price.formatted_with_symbol+'x'+cartItem.product.quantity}</Typography>
+        </div>
       </CardContent>
       <CardActions className={styles.cartActions}>
         <div className={styles.buttons}>
@@ -37,7 +41,7 @@ function CartItem(cartItem:ICartItem) {
           <Typography>&nbsp;{cartItem.product.quantity}&nbsp;</Typography>
           <Button type="button" size="small" onClick={() => handleUpdateCartQty(cartItem.product.id, cartItem.product.quantity + 1)}>+</Button>
         </div>
-        <Button variant="contained" type="button" color="secondary" onClick={() => handleRemoveFromCart(cartItem.product.id)}>🗑</Button>
+        <Button variant="contained" type="button" color="secondary" onClick={() => handleRemoveFromCart(cartItem.product.id)}>Remove</Button>
       </CardActions>
     </Card>
   )

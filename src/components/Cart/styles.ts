@@ -29,4 +29,9 @@ export default makeStyles((theme) => ({
         justifyContent: 'space-between',
         fontFamily: "Montserrat",
     },
+  spinner: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }));

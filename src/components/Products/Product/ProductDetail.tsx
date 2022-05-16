@@ -7,6 +7,7 @@ import { AddShoppingCart } from '@material-ui/icons'
 import useStyles from './styles';
 import "@fontsource/montserrat"; 
 interface IProductDetail{
+    products : IProductItem[];
     onAddToCart:Function;
 }
 
@@ -21,13 +22,20 @@ function ProductDetail(item:IProductDetail) {
 
     const fetchProduct = async (id:string) => {
         const data = await commerce.products.retrieve(id, { type: 'id' });
-        
         setProduct(data);
     }
 
     useEffect(()=> {
-        fetchProduct(productId.id as string);
-        if(product) setCurrImage(product.image.url);
+        // fetchProduct(productId.id as string);
+        item.products.forEach(a=>{
+            if(a.id === productId.id){
+                setProduct(a)
+            }
+        })
+        if(product){
+            setCurrImage(product.image.url);
+        } 
+        
     },[]);
 
   return product ? (
@@ -51,7 +59,7 @@ function ProductDetail(item:IProductDetail) {
         {product.variant_groups.map((variant_groups)=>(
                     <Grid style={{paddingTop:'5em'}} className={styles.sizeInput} justifyContent="flex-start" item xs={12} sm={6} >
                     <InputLabel style={{ paddingBottom:'.2em',fontSize:'1.25rem'}}> {variant_groups.name} </InputLabel>
-                    <Select style={{ width:'3.5em'}} value={variant.get(variant_groups.id)} fullWidth onChange={(e:any) => setVariant(new Map<string,string>(variant.set(variant_groups.id,e.target.value)))}>
+                    <Select defaultValue={variant_groups.options[0].id} style={{ width:'3.5em'}} value={variant.get(variant_groups.id)} fullWidth onChange={(e:any) => setVariant(new Map<string,string>(variant.set(variant_groups.id,e.target.value)))}>
                     {variant_groups.options.map((item) => (
                         <MenuItem key={item.id} value={item.id}>
                         {item.name}
@@ -66,7 +74,7 @@ function ProductDetail(item:IProductDetail) {
             <Grid className={styles.sizeInput} item xs={12} sm={6}>
             <InputLabel style={{ paddingBottom:'.7em',lineHeight:'0',fontSize:'1.25rem'}}> Quantity </InputLabel>
             <Input className = {styles.cardDesc + " " + styles.inputQty} type="number" onChange={(e)=> {
-                e.target.value = (e.target.value < '0') ? ' ' : e.target.value;
+                e.target.value = (e.target.value <= '0') ? '1' : e.target.value;
                 setQuantity(parseInt(e.target.value));
             }} value = {quantity}/>
             </Grid>
