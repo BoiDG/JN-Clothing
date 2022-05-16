@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import Announcement from './components/Announcement/Announcement';
 import "@fontsource/montserrat"; 
 import useStyles from './style';
-import { RestaurantMenuTwoTone } from '@material-ui/icons';
+
 
 function App() {
   const styles = useStyles();
@@ -15,6 +15,7 @@ function App() {
   const [checkoutLoading,setCheckoutLoading] = useState(false);
   const [products, setProducts] = useState<IProductItem[]>([]);
   const [categories, setCategories] = useState<ICategory[]>([]);
+
   const [cart, setCart] = useState<ICart>({
     id:'',
     total_items:0,
@@ -27,9 +28,12 @@ function App() {
     }
   });
 
+
+
   const [order, setOrder] = useState<IOrder>();
   const [errorMessage, setErrorMessage] = useState('');
-  const fetchProducts = async () => {
+
+    const fetchProducts = async () => {
     const { data } = await commerce.products.list();
     setProducts(data);
   }
@@ -189,8 +193,9 @@ function App() {
     fetchCart();
     fetchCategories();
     fetchProducts();
+    
+    
   },[]);
-
 
   return (
     <Router>

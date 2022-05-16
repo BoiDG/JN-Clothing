@@ -92,6 +92,7 @@ export interface IUserCredentials{
     lastName:string;
     address1:string;
     email:string;
+    phone:string;
     city:string;
     zip:string;
 }
