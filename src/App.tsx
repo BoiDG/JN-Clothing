@@ -105,7 +105,6 @@ function App() {
         item.line_total.formatted_with_code = 'Rp'+item.line_total.formatted;
       }else{
         handleRemoveFromCart(lineItemId);
-      
       } 
     })
     
@@ -210,7 +209,7 @@ function App() {
             <Products products={products} onAddToCart={handleAddToCart} />
           } />
           <Route path="/product/:id" element={
-            <ProductDetail onAddToCart={handleAddToCart} />
+            <ProductDetail onAddToCart={handleAddToCart} products={products} />
           } />
           <Route path="/cart" element={
             <Cart cart={cart} EmptyCart={handleEmptyCart} onUpdateQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} loading={loading} />

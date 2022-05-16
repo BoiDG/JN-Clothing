@@ -22,9 +22,9 @@ function Cart(cartDetail:ICartDetail) {
     const EmptyCart = () => (
         <Typography variant="subtitle1"> Your cart is empty </Typography>
     )
-    // useEffect(() => {
-    //     timeout()
-    //   }, []);
+    useEffect(() => {
+      setcartLength(cartDetail.cart.line_items.length)
+      }, [cartDetail.cart.line_items.length]);
   const FilledCart = () => (
       <>
         <Grid container spacing={3}>
