@@ -34,10 +34,9 @@ const Checkout = (CheckOutDetail:ICheckOut) => {
         // buat function kusus karena anonimus function ga bisa async
         try {
           const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
-
           setCheckoutToken(token);
         } catch {
-          if (activeStep !== steps.length) nav('/');
+          if (activeStep !== steps.length) {alert('Please pick an item to order first');nav('/')};
         }
       };
 
@@ -93,7 +92,7 @@ const Checkout = (CheckOutDetail:ICheckOut) => {
 
   const Form = () => (activeStep === 0
     ? <AddressForm checkoutToken={checkoutToken} nextStep={nextStep} setShippingData={setShippingData} saveAddressData={saveAddressData} />
-    : <PaymentForm checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} shippingData={shippingData} onCaptureCheckout={onCaptureCheckout} />);
+    : <PaymentForm checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} onCaptureCheckout={onCaptureCheckout} />);
 
   return (
     <>

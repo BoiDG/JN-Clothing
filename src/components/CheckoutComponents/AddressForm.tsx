@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { commerce } from '../../lib/commerce';
 import FormInput from './CustomTextField';
-import { IOrder, IShippingMethods } from '../../interfaces';
+import { IOrder, IShippingMethods,IShippingInfo } from '../../interfaces';
 
 interface IAddressForm{
     checkoutToken:IOrder;
@@ -13,6 +13,10 @@ interface IAddressForm{
 }
 
 const AddressForm = (checkoutDetail:IAddressForm|any) => {
+
+
+
+  const axios = require('axios');
   const { checkoutToken, saveAddressData } = checkoutDetail;
 
   const [shippingCountries, setShippingCountries] = useState([]);
@@ -46,7 +50,23 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
 
   useEffect(() => {
     fetchShippingCountries(checkoutToken.id);
+    console.log(shippingCountries)
+    //change this to the script source you want to load, for example this is snap.js sandbox env
+    const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'; 
+    //change this according to your client-key
+    const myMidtransClientKey = 'SB-Mid-client-JlCnybacKB5ddA_l'; 
    
+    let scriptTag = document.createElement('script');
+    scriptTag.src = midtransScriptUrl;
+    // optional if you want to set script attribute
+    // for example snap.js have data-client-key attribute
+    scriptTag.setAttribute('data-client-key', myMidtransClientKey);
+   
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    }
+    
   }, []);
 
   useEffect(() => {
@@ -56,17 +76,73 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
   useEffect(() => {
     if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
   }, [shippingSubdivision]);
- 
+
+
+  const handleSubmit = async (data:IShippingInfo) => {
+    // event.preventDefault();
+    console.log('tes')
+    // if (!stripe || !elements) return;
+
+    // const cardElement = elements.getElement(CardElement);
+
+    // const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
+    // if (error || !shippingData || !shippingData.data) {
+    //   // console.log('[error]', error);
+    // } else {
+    //   const orderData = {
+    //     line_items: checkoutToken?.line_items,
+    //     customer: { firstname: shippingData?.data.firstName, lastName: shippingData?.data.lastName, email: shippingData?.data.email },
+    //     shipping: { name: 'International', street: shippingData?.data.address1, town_city: shippingData?.data.city, county_state: shippingData?.shippingSubdivision, postal_zip_code: shippingData?.data.zip, country: shippingData?.shippingCountry },
+    //     fulfillment: { shipping_method: shippingData?.shippingOption },
+    //     payment: {
+    //       gateway: 'stripe',
+    //       stripe: {
+    //         payment_method_id: paymentMethod.id,
+    //       },
+    //     },
+    //   };
+    
+
+    let parameter = {
+      "transaction_details": {
+          "order_id": checkoutToken?.id,
+          "gross_amount": checkoutToken?.live.subtotal.raw
+      },
+      "credit_card":{
+          "secure" : true
+      },
+      "customer_details": {
+          "first_name": data.data.firstName,
+          "last_name": data.data.lastName,
+          "email": data.data.email,
+          "phone": data.data.phone
+      }
+    };
+   
+    console.log(parameter)
+      try{
+        let url='https://indonesia-covid-news-article.herokuapp.com/order';
+        const message = await axios.post(url,{
+          parameter
+        })
+        window?.snap?.pay(message.data.token)
+        // onCaptureCheckout(checkoutToken?.id, orderData);
+      }catch(error){
+         
+      }
+      // nextStep();
+    }
   return (
     <>
       <Typography variant="h6" gutterBottom>Shipping address</Typography>
       <FormProvider {...methods} >
-        <form onSubmit={methods.handleSubmit((data:any) => saveAddressData({ data:{...data}, shippingCountry, shippingSubdivision, shippingOption }))}>
+        <form onSubmit={methods.handleSubmit((data:any) => handleSubmit({ data:{...data}, shippingCountry, shippingSubdivision, shippingOption }))}>
           <Grid container spacing={3}>
             <FormInput {...register("firstName")} required name="firstName" label="First name" />
             <FormInput {...register("lastName")} required name="lastName" label="Last name" />
             <FormInput {...register("address1")} required name="address1" label="Address line 1" />
             <FormInput {...register("email")} required name="email" label="Email" />
+            <FormInput {...register("phone")} required name="phone" label="Phone" />
             <FormInput {...register("city")} required name="city" label="City" />
             <FormInput {...register("zip")} required name="zip" label="Zip / Postal code" />
             <Grid item xs={12} sm={6}>
