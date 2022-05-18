@@ -1,4 +1,5 @@
 import { makeStyles, fade } from '@material-ui/core/styles';
+import { height } from '@mui/system';
 
 const drawerWidth = 0;
 
@@ -60,41 +61,82 @@ export default makeStyles((theme) => ({
     border: "3px solid white",
     marginTop:'1em',
   },
-  container: {
-
+  containerHeader: {
+    display: "flex",
+    justifyContent: "left",
+    fontSize: "30px",
+    position: "relative",
+    marginTop: "30px",
+    marginBottom: "30px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "15px",
+      marginTop: "10px",
+      marginBottom: "10px",
+    }
   },
+
+  orangeBar: {
+    display: "flex",
+    justifyContent: "left",
+    position: "absolute",
+    
+    backgroundColor: "#FFA53C",
+    height: "10px",
+    width: "150px",
+    left: "0px",
+    bottom: "55px",
+    [theme.breakpoints.down("sm")]: {
+      height: '5px',
+      top: "325px",
+      width: "60px",
+    }
+  },
+
   containerBox: {
     display: "flex",
-    justifyContent: "space-evenly",
-    padding: "20px",
-    backgroundColor: "green",
-
+    flexDirection: "row",
+    justifyContent: "space-around",
+    height: "auto",
+    width: "100%",
+    flexFlow: "wrap",
+    // backgroundColor: "green",
   },
+
   containerItm: {
     display: "flex",
     [theme.breakpoints.down('xs')]: {
-      height: "200px",
+      height: "100px",
+      width: "100px",
     },
-    backgroundColor: "blue",
-    // backgroundImage:`linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url("https://images.unsplash.com/photo-1558981852-426c6c22a060?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80")`,
+    // backgroundColor: "blue",
     height: "300px",
     width: "300px"
 
   },
 
+  containerMoreBtn: {
+    display: "flex",
+    justifyContent: "right",
+    paddingRight: "20px",
+    // backgroundColor: "green",
+  },
+
   secondBanner: {
-    // backgroundImage: `url(./../asset/adam&god.jpg)`,
     backgroundImage:`linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url("https://upload.wikimedia.org/wikipedia/commons/5/5b/Michelangelo_-_Creation_of_Adam_%28cropped%29.jpg")`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         width: '100%',
-        height: '50vh'
+        height: '50vh',
+        display: 'flex',
+        [theme.breakpoints.down("sm")]: {
+          height: '100px',
+        }
   },
 
   itemImg: {
-    width: '80%', 
-    height: "80%", 
+    width: '100%', 
+    height: "100%", 
     objectFit: "contain",
   },
 
@@ -155,5 +197,12 @@ export default makeStyles((theme) => ({
     display: "table",
     clear: "both"
 
-  }
+  },
+  
+  footer: {
+  backgroundColor: "grey",
+    
+
+  },
+  
 }));
