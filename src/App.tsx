@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { commerce } from './lib/commerce';
-import {Products, Navbar, Cart,Checkout, ProductDetail, Categories, Home } from './components';
+import {Products, Navbar, Cart,Checkout, ProductDetail, Categories, Home, Footer } from './components';
 import { ICart, ICategory, IOrder, IProductItem,IVariantCart } from './interfaces';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import Announcement from './components/Announcement/Announcement';
@@ -224,6 +224,7 @@ function App() {
             <Checkout cart={cart} order={order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage} />
           } />
         </Routes>
+        <Footer></Footer>
       </main>
     </div>
     </Router>

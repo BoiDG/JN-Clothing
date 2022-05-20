@@ -61,16 +61,23 @@ export default makeStyles((theme) => ({
     border: "3px solid white",
     marginTop:'1em',
   },
+  container: {
+    padding: "2em",
+    [theme.breakpoints.down("xs")]: {
+      padding: "1em",
+    }
+  },
+
   containerHeader: {
     display: "flex",
     justifyContent: "left",
-    fontSize: "30px",
+    fontSize: "40px",
     position: "relative",
-    marginTop: "30px",
+    // marginTop: "30px",
     marginBottom: "30px",
-    [theme.breakpoints.down("sm")]: {
+    fontFamily: "montserrat",
+    [theme.breakpoints.down("xs")]: {
       fontSize: "15px",
-      marginTop: "10px",
       marginBottom: "10px",
     }
   },
@@ -82,19 +89,32 @@ export default makeStyles((theme) => ({
     
     backgroundColor: "#FFA53C",
     height: "10px",
-    width: "150px",
+    width: "10.5em",
     left: "0px",
-    bottom: "55px",
+    bottom: "31.5em",
+    [theme.breakpoints.down("lg")]: {
+      height: '10px',
+      top: "35.5em",
+      width: "10.5em",
+    },
     [theme.breakpoints.down("sm")]: {
+      height: '10px',
+      top: "23em",
+      width: "12em",
+    },
+    [theme.breakpoints.down("xs")]: {
       height: '5px',
-      top: "325px",
-      width: "60px",
+      top: "20.5em",
+      width: "4.5em",
     }
+
+  
   },
 
   containerBox: {
     display: "flex",
     flexDirection: "row",
+    position: "relative",
     justifyContent: "space-around",
     height: "auto",
     width: "100%",
@@ -108,16 +128,17 @@ export default makeStyles((theme) => ({
       height: "100px",
       width: "100px",
     },
-    // backgroundColor: "blue",
+
     height: "300px",
     width: "300px"
 
   },
 
   containerMoreBtn: {
+    fontFamily: "montserrat",
     display: "flex",
     justifyContent: "right",
-    paddingRight: "20px",
+    // paddingRight: "20px",
     // backgroundColor: "green",
   },
 
@@ -127,11 +148,17 @@ export default makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         width: '100%',
-        height: '50vh',
+        height: '25vh',
         display: 'flex',
+        [theme.breakpoints.down("lg")]: {
+          height: '30vh',
+        },
         [theme.breakpoints.down("sm")]: {
-          height: '100px',
-        }
+          height: '30vh',
+        },
+        [theme.breakpoints.down("xs")]: {
+          height: '10vh',
+        },
   },
 
   itemImg: {

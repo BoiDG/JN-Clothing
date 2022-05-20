@@ -16,6 +16,8 @@ interface IHome{
     products : IProductItem[];
 }
 
+
+
 function Home(homeInterface:IHome) {
   const styles = useStyles();
 
@@ -26,7 +28,7 @@ function Home(homeInterface:IHome) {
         <img src={asset} className={styles.bannerImg}/>
       </Grid>
  
-      <Container maxWidth="lg">
+      <div className={styles.container}>
       <div className={styles.orangeBar}/>
       <div className={styles.containerHeader}>Collections</div>
       
@@ -36,7 +38,7 @@ function Home(homeInterface:IHome) {
           <div className={styles.containerItm}><img src={cloth1}/></div>
         </div>
         <div className={styles.containerMoreBtn}>see more</div>
-      </Container>
+      </div>
 
       <div className={styles.secondBanner}/>
 
@@ -47,3 +49,4 @@ function Home(homeInterface:IHome) {
 }
 
 export default Home
+
