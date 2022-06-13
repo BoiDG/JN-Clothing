@@ -40,21 +40,29 @@ function ProductDetail(item:IProductDetail) {
 
   return product ? (
     <div className={styles.productDetailLayout}>  
+        
         <div>
-        <img className={styles.image} src={currImage!=='' ? currImage:product.image.url} alt={product.image.name} />
-        <div >
-            {product.assets.map((asset)=>(
-                <img onClick={()=> setCurrImage(asset.url)} className={styles.imageSmol} src={asset.url} alt={asset.name}></img>
-            ))}
+            <img className={styles.image} src={currImage!=='' ? currImage:product.image.url} alt={product.image.name} />
+                <div>
+                    {product.assets.map((asset)=>(
+                        <img onClick={()=> setCurrImage(asset.url)} className={styles.imageSmol} src={asset.url} alt={asset.name}></img>
+                    ))}
+                </div>
         </div>
+        <div>
+            
         </div>
         <div className={styles.description}>
-            <Typography style={{ paddingTop:'3em',textAlign:'left',color:'grey',fontFamily: "Montserrat"}} variant="subtitle1"> 
+            <Typography className={styles.urlTextHeader}  variant="subtitle1"> 
             <Typography className={styles.urlText} component={Link} to={`/category`}>category</Typography>/
-            <Typography className={styles.urlText} component={Link} to={`/${product.categories[0].slug}/product`}>{product.categories[0].slug}</Typography>/ 
-            </Typography>
-        <Typography style={{ textAlign:'left',fontFamily: "Montserrat",fontSize:'5rem',fontWeight:'strong',width:'70%'}}variant="h4"> {product.name} </Typography>
-        <Typography style={{ textAlign:'left',fontFamily: "Montserrat",fontSize:'1.5rem'}} variant="h6"> {product.price.formatted_with_symbol}  </Typography>
+            <Typography className={styles.urlText} component={Link} to={`/${product.categories[0].slug}/product`}>{product.categories[0].slug}
+            </Typography>/ </Typography>
+
+            <Typography className={styles.productName} variant="h4"> {product.name} </Typography>
+            
+            <Typography className={styles.productPrice}  variant="h6"> {product.price.formatted_with_symbol}  </Typography>
+        
+
         
         {product.variant_groups.map((variant_groups)=>(
                     <Grid style={{paddingTop:'5em'}} className={styles.sizeInput} justifyContent="flex-start" item xs={12} sm={6} >
@@ -81,24 +89,14 @@ function ProductDetail(item:IProductDetail) {
    
             
             
-        <Button style={{
-            borderRadius: 2,
-            backgroundColor: "black",
-            paddingInline:'3em',
-            color:'white',
-            width:'60%',
-            display: 'flex',
-            justifyContent:'center',
-            marginTop:'3em'
-        }}
-    aria-label="Add to Cart" variant="contained" onClick={()=> item.onAddToCart(product, quantity,variant)}>
-          <Typography variant="subtitle1" style={{fontSize:'1.5rem'}}>
+        <Button className ={styles.button} aria-label="Add to Cart" variant="contained" onClick={()=> item.onAddToCart(product, quantity,variant)}>
+          <Typography variant="subtitle1" className ={styles.buttonText} >
           Add to Cart &nbsp;&nbsp;
-        </Typography> 
+          </Typography> 
         </Button>
       </CardActions>
 
-        <Typography style={{paddingTop:'1em',textAlign:'left',width:'80%',color:'grey'}} dangerouslySetInnerHTML={{ __html: product.description}} />
+        <Typography className={styles.descriptionText} dangerouslySetInnerHTML={{ __html: product.description}} />
 
         </div>
         

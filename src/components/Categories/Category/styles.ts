@@ -3,7 +3,8 @@ import "@fontsource/montserrat";
 
 export default makeStyles((theme) => ({
     root: {
-        marginTop:'3em',
+        marginTop:'2em',
+        marginBottom:'3em',
         maxWidth: '90%',
         marginInline:'auto',
         boxShadow: '0 1px 2px rgba(0,0,0,0.15)',

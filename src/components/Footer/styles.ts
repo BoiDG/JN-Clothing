@@ -75,7 +75,9 @@ export default makeStyles((theme) => ({
     backgroundColor:"#25272B",
     margin: "auto",
     padding: "1em",
-    
+    [theme.breakpoints.down("xs")]: {
+     
+    },
   
   },
 
