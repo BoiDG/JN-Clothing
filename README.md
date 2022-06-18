@@ -21,7 +21,8 @@ Then the development of the application itself is carried out in stages using th
 The testing phase starts from the alpha release by the developer team on cross-device for one week and then the beta release testing by selected users for one week. At the testing stage to facilitate user access, we deploy the application on Heroku as a free hosting service. After testing the application, it is then deployed with its own hosting and domain.
 
 
-references
+## references
+
 Adnyana, I.K.W., Antara, I.G.M.Y. and Wulandari, D.A.P. (2021) ‘Pemanfaatan Application Programming Interface Midtrans dan Raja Ongkir Untuk Membangun Enterprise Application Integration’, Jutisi: Jurnal Ilmiah Teknik Informatika dan Sistem Informasi, 10(1), pp. 13–22.
 
 Dinesh, S. and MuniRaju, Y. (2021) ‘Scalability of e-commerce in the COVID-19 era’, International Journal of Research-GRANTHAALAYAH, 9(1), pp. 123–128.
