@@ -1,4 +1,4 @@
-# JNB Clothing
+# JN Clothing
 
 Quick E-commerce website application with commercejs, midtrans, rajaongkir
 
