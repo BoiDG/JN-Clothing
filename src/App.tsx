@@ -183,7 +183,7 @@ function App() {
 
       setOrder(incomingOrder);
 
-      refreshCart();
+      
     } catch (error:any) {
       setErrorMessage(error.data.error.message);
     }
@@ -207,6 +207,7 @@ function App() {
           <Route path="/" element={
             <Home products={products} />
             } />
+            
           <Route path="/category" element={
             <Categories categories={categories} />
           } />
@@ -221,7 +222,7 @@ function App() {
           } />
 
           <Route path="/checkout" element={
-            <Checkout cart={cart} order={order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage} />
+            <Checkout cart={cart} order={order} onEmptyCart={handleEmptyCart} onCaptureCheckout={handleCaptureCheckout} error={errorMessage} />
           } />
         </Routes>
         <Footer></Footer>

@@ -74,8 +74,25 @@ export interface IShippingMethods{
     countries:string[];
     description:string;
     price:IPrice;
+    
 }
 
+export interface IInternalShippingMethods{
+    kode:string;
+    name:string;
+
+}
+export interface IProvince{
+    province:string;
+    province_id:number;
+    
+
+}
+export interface ICity{
+    city_id:number;
+    city_name:string;
+
+}
 
 export interface IOrder{
     id:string;
@@ -99,9 +116,22 @@ export interface IUserCredentials{
 
 export interface IShippingInfo{ 
     data:IUserCredentials;
-    shippingCountry:string;
-    shippingSubdivision:string;
-    shippingOption:string;
+    // shippingCity:string; 
+    // shippingOption:string;
+    // shippingService:string;
+    cost:number;
+}
+
+export interface IShippingCost{ 
+    value:number;
+    etd:string; 
+    note:string;
+}
+
+export interface IShippingService{ 
+    service:string;
+    description:string; 
+    cost:IShippingCost[];
 }
 
 

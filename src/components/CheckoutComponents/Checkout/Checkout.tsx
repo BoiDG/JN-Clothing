@@ -13,6 +13,7 @@ const steps = ['Shipping address', 'Payment details'];
 interface ICheckOut{
   cart:ICart;
   onCaptureCheckout:Function;
+  onEmptyCart:Function;
   order:any;
   error:string;
 }
@@ -36,7 +37,7 @@ const Checkout = (CheckOutDetail:ICheckOut) => {
           const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
           setCheckoutToken(token);
         } catch {
-          if (activeStep !== steps.length) {alert('Please pick an item to order first');nav('/')};
+          // if (activeStep !== steps.length) {alert('Please pick an item to order first');nav('/')};
         }
       };
 
@@ -91,7 +92,7 @@ const Checkout = (CheckOutDetail:ICheckOut) => {
   }
 
   const Form = () => (activeStep === 0
-    ? <AddressForm checkoutToken={checkoutToken} nextStep={nextStep} setShippingData={setShippingData} saveAddressData={saveAddressData} />
+    ? <AddressForm onEmptyCart = {CheckOutDetail.onEmptyCart} checkoutToken={checkoutToken} nextStep={nextStep} setShippingData={setShippingData} saveAddressData={saveAddressData} />
     : <PaymentForm checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} onCaptureCheckout={onCaptureCheckout} />);
 
   return (

@@ -37,7 +37,7 @@ function Home(homeInterface:IHome) {
           <div className={styles.containerItm}><img src={cloth1}/></div>
           <div className={styles.containerItm}><img src={cloth1}/></div>
         </div>
-        <div className={styles.containerMoreBtn}>see more</div>
+        <Typography className={styles.containerMoreBtn} component={Link} to={`/newArrival/product`}>see more</Typography>
       </div>
 
       <div className={styles.secondBanner}/>

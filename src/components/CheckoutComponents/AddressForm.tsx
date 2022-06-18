@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 
 import { commerce } from '../../lib/commerce';
 import FormInput from './CustomTextField';
-import { IOrder, IShippingMethods,IShippingInfo } from '../../interfaces';
+import { IOrder, IInternalShippingMethods,IShippingInfo,IProvince,ICity,IShippingService } from '../../interfaces';
 
 interface IAddressForm{
     checkoutToken:IOrder;
     saveAddressData:Function;
+    onEmptyCart: Function;
 }
 
 const AddressForm = (checkoutDetail:IAddressForm|any) => {
@@ -19,38 +20,69 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
   const axios = require('axios');
   const { checkoutToken, saveAddressData } = checkoutDetail;
 
-  const [shippingCountries, setShippingCountries] = useState([]);
-  const [shippingCountry, setShippingCountry] = useState('');
-  const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
-  const [shippingSubdivision, setShippingSubdivision] = useState('');
-  const [shippingOptions, setShippingOptions] = useState<IShippingMethods[]>([]);
+  const [shippingProvinces, setShippingProvinces] = useState<IProvince[]>([]);
+  const [shippingProvince, setShippingProvince] = useState<number>(0);
+  const [shippingCities, setShippingCities] = useState<ICity[]>([]);
+  const [shippingCity, setShippingCity] = useState(0);
+  const [shippingOptions, setShippingOptions] = useState<IInternalShippingMethods[]>([
+    { name:'JNE',
+      kode:'jne'
+    },
+    { name:'POS Indonesia',
+      kode:'pos'
+    },
+    { name:'TIKI',
+      kode:'tiki'
+    }]);
   const [shippingOption, setShippingOption] = useState('');
+  
+  const [shippingServices, setShippingServices] = useState<IShippingService[]>([]);
+  const [cost, setCost] = useState(0);
   const methods = useForm();
   const register = methods.register;
 
-  const fetchShippingCountries = async (checkoutTokenId:string) => {
-    const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
-    setShippingCountries(countries);
-    setShippingCountry(Object.keys(countries)[0]);
+  const fetchShippingProvinces = async () => {
+    // const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+
+    let url='https://indonesia-covid-news-article.herokuapp.com/province';
+    const {data} = await axios.get(url);
+    setShippingProvinces(data);
+    setShippingProvince(data[0].province_id);
+    // setShippingProvince(shippingProvinces[0].province_id);
+   
   };
 
-  const fetchSubdivisions = async (checkoutTokenId:string,countryCode:string) => {
-    const { subdivisions } = await commerce.services.localeListShippingSubdivisions(checkoutTokenId,countryCode);
-
-    setShippingSubdivisions(subdivisions);
-    setShippingSubdivision(Object.keys(subdivisions)[0]);
+  const fetchCities = async (province:number) => {
+    let url='https://indonesia-covid-news-article.herokuapp.com/city';
+    const {data} = await axios.post(url,{
+      province:province
+    })
+    
+    setShippingCities(data);
+    setShippingCity(data[0].city_id);
   };
 
-  const fetchShippingOptions = async (checkoutTokenId:string, country:string, stateProvince:string | any) => {
-    const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
+  const fetchCost = async (origin:number, destination:number,courier:string) => {
+    let url='https://indonesia-covid-news-article.herokuapp.com/service';
+    const {data} = await axios.post(url,{
 
-    setShippingOptions(options);
-    setShippingOption(options[0].id);
+        origin:origin,
+        destination:destination,
+        weight:500,
+        courier: courier
+      
+    });
+    // console.log(data)
+    setShippingServices(data[0].costs);
+    setCost(data[0].costs[0].cost[0].value);
+    // setShippingOptions(results);
+    // setShippingOption(results);
   };
 
   useEffect(() => {
-    fetchShippingCountries(checkoutToken.id);
-    console.log(shippingCountries)
+    fetchShippingProvinces();
+    console.log(shippingProvince)
+    // console.log(shippingCountries)
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'; 
     //change this according to your client-key
@@ -70,16 +102,20 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
   }, []);
 
   useEffect(() => {
-    if (shippingCountry) fetchSubdivisions(checkoutToken.id,shippingCountry);
-  }, [shippingCountry]);
+    if (shippingProvince) fetchCities(shippingProvince);
+  }, [shippingProvince]);
 
   useEffect(() => {
-    if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
-  }, [shippingSubdivision]);
+    if (shippingCity && shippingOption) fetchCost(152,shippingCity,shippingOption)
+  }, [shippingCity,shippingOption]);
 
+  function formatToCurrency(amount:Number){
+    return (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
+  }
 
   const handleSubmit = async (data:IShippingInfo) => {
     // event.preventDefault();
+    
     console.log('tes')
     // if (!stripe || !elements) return;
 
@@ -89,24 +125,13 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
     // if (error || !shippingData || !shippingData.data) {
     //   // console.log('[error]', error);
     // } else {
-    //   const orderData = {
-    //     line_items: checkoutToken?.line_items,
-    //     customer: { firstname: shippingData?.data.firstName, lastName: shippingData?.data.lastName, email: shippingData?.data.email },
-    //     shipping: { name: 'International', street: shippingData?.data.address1, town_city: shippingData?.data.city, county_state: shippingData?.shippingSubdivision, postal_zip_code: shippingData?.data.zip, country: shippingData?.shippingCountry },
-    //     fulfillment: { shipping_method: shippingData?.shippingOption },
-    //     payment: {
-    //       gateway: 'stripe',
-    //       stripe: {
-    //         payment_method_id: paymentMethod.id,
-    //       },
-    //     },
+    //   
     //   };
-    
 
     let parameter = {
       "transaction_details": {
           "order_id": checkoutToken?.id,
-          "gross_amount": checkoutToken?.live.subtotal.raw
+          "gross_amount": checkoutToken?.live.subtotal.raw + data.cost
       },
       "credit_card":{
           "secure" : true
@@ -121,12 +146,13 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
    
     console.log(parameter)
       try{
+        
         let url='https://indonesia-covid-news-article.herokuapp.com/order';
         const message = await axios.post(url,{
-          parameter
+          parameter : parameter
         })
         window?.snap?.pay(message.data.token)
-        // onCaptureCheckout(checkoutToken?.id, orderData);
+        
       }catch(error){
          
       }
@@ -136,40 +162,49 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
     <>
       <Typography variant="h6" gutterBottom>Shipping address</Typography>
       <FormProvider {...methods} >
-        <form onSubmit={methods.handleSubmit((data:any) => handleSubmit({ data:{...data}, shippingCountry, shippingSubdivision, shippingOption }))}>
+        <form onSubmit={methods.handleSubmit((data:any) => handleSubmit({ data:{...data}, cost }))}>
           <Grid container spacing={3}>
             <FormInput {...register("firstName")} required name="firstName" label="First name" />
             <FormInput {...register("lastName")} required name="lastName" label="Last name" />
             <FormInput {...register("address1")} required name="address1" label="Address line 1" />
             <FormInput {...register("email")} required name="email" label="Email" />
             <FormInput {...register("phone")} required name="phone" label="Phone" />
-            <FormInput {...register("city")} required name="city" label="City" />
             <FormInput {...register("zip")} required name="zip" label="Zip / Postal code" />
             <Grid item xs={12} sm={6}>
-              <InputLabel>Shipping Country</InputLabel>
-              <Select value={shippingCountry} fullWidth onChange={(e:any) => setShippingCountry(e.target.value)}>
-                {Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name })).map((item) => (
-                  <MenuItem key={item.id} value={item.id}>
-                    {item.label}
+              <InputLabel>Province</InputLabel>
+              <Select value={shippingProvince} fullWidth onChange={(e:any) => setShippingProvince(e.target.value)}>
+                {shippingProvinces.map((item) => (
+                  <MenuItem key={item.province_id} value={item.province_id}>
+                    {item.province}
                   </MenuItem>
                 ))}
               </Select>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel>Shipping Subdivision</InputLabel>
-              <Select value={shippingSubdivision} fullWidth onChange={(e:any) => setShippingSubdivision(e.target.value)}>
-                {Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name })).map((item) => (
-                  <MenuItem key={item.id} value={item.id}>
-                    {item.label}
+            <InputLabel>City</InputLabel>
+            <Select value={shippingCity} fullWidth onChange={(e:any) => setShippingCity(e.target.value)}>
+                {shippingCities.map((item) => (
+                  <MenuItem key={item.city_id} value={item.city_id}>
+                    {item.city_name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <InputLabel>Shipping Services</InputLabel>
+              <Select value={shippingOption} fullWidth onChange={(e:any) => setShippingOption(e.target.value)}>
+                {shippingOptions.map((item) => (
+                  <MenuItem key={item.kode} value={item.kode}>
+                    {item.name}
                   </MenuItem>
                 ))}
               </Select>
             </Grid>
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Options</InputLabel>
-              <Select value={shippingOption} fullWidth onChange={(e:any) => setShippingOption(e.target.value)}>
-                {shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` })).map((item) => (
-                  <MenuItem key={item.id} value={item.id}>
+              <Select value={cost} fullWidth onChange={(e:any) => setCost(e.target.value)}>
+                {shippingServices.map((service) => ({ id: service.service, cost : service.cost[0].value, label: service.service + " - Rp. " + formatToCurrency(service.cost[0].value) +" - "+  service.cost[0].etd +" days"})).map((item) => (
+                  <MenuItem key={item.id} value={item.cost}>
                     {item.label}
                   </MenuItem>
                 ))}

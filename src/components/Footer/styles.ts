@@ -74,6 +74,8 @@ export default makeStyles((theme) => ({
     maxWidth: "100%",
     backgroundColor:"#25272B",
     margin: "auto",
+    marginTop:"5em",
+    paddingTop:'3em',
     padding: "1em",
     [theme.breakpoints.down("xs")]: {
      
