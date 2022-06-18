@@ -20,3 +20,19 @@ Then the development of the application itself is carried out in stages using th
 
 The testing phase starts from the alpha release by the developer team on cross-device for one week and then the beta release testing by selected users for one week. At the testing stage to facilitate user access, we deploy the application on Heroku as a free hosting service. After testing the application, it is then deployed with its own hosting and domain.
 
+
+references
+Adnyana, I.K.W., Antara, I.G.M.Y. and Wulandari, D.A.P. (2021) ‘Pemanfaatan Application Programming Interface Midtrans dan Raja Ongkir Untuk Membangun Enterprise Application Integration’, Jutisi: Jurnal Ilmiah Teknik Informatika dan Sistem Informasi, 10(1), pp. 13–22.
+
+Dinesh, S. and MuniRaju, Y. (2021) ‘Scalability of e-commerce in the COVID-19 era’, International Journal of Research-GRANTHAALAYAH, 9(1), pp. 123–128.
+
+Hallowell, R. (2001) ‘“Scalability”: the paradox of human resources in e‐commerce’, International Journal of Service Industry Management, 12(1), pp. 34–43.
+
+Raj, V. and Ravichandra, S. (2018) ‘Microservices: A perfect SOA based solution for Enterprise Applications compared to Web Services’, in 2018 3rd IEEE International Conference on recent trends in electronics, information & communication technology (RTEICT). IEEE, pp. 1531–1536.
+
+Tran, D.T.P. (2016) ‘Design and Implement Scalable Robust Modern Web Application’.
+Xing, Y., Huang, J. and Lai, Y. (2019) ‘Research and analysis of the front-end frameworks and libraries in e-business development’, in Proceedings of the 2019 11th International Conference on Computer and Automation Engineering, pp. 68–72.
+
+https://github.com/adrianhajdin/project_e_commerce
+
+
