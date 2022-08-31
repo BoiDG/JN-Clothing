@@ -44,7 +44,7 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
   const fetchShippingProvinces = async () => {
     // const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
 
-    let url='https://indonesia-covid-news-article.herokuapp.com/province';
+    let url='';
     const {data} = await axios.get(url);
     setShippingProvinces(data);
     setShippingProvince(data[0].province_id);
@@ -53,7 +53,7 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
   };
 
   const fetchCities = async (province:number) => {
-    let url='https://indonesia-covid-news-article.herokuapp.com/city';
+    let url='';
     const {data} = await axios.post(url,{
       province:province
     })
@@ -63,7 +63,7 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
   };
 
   const fetchCost = async (origin:number, destination:number,courier:string) => {
-    let url='https://indonesia-covid-news-article.herokuapp.com/service';
+    let url='';
     const {data} = await axios.post(url,{
 
         origin:origin,
@@ -86,7 +86,7 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'; 
     //change this according to your client-key
-    const myMidtransClientKey = 'SB-Mid-client-JlCnybacKB5ddA_l'; 
+    const myMidtransClientKey = ''; 
    
     let scriptTag = document.createElement('script');
     scriptTag.src = midtransScriptUrl;
@@ -147,7 +147,7 @@ const AddressForm = (checkoutDetail:IAddressForm|any) => {
     console.log(parameter)
       try{
         
-        let url='https://indonesia-covid-news-article.herokuapp.com/order';
+        let url='';
         const message = await axios.post(url,{
           parameter : parameter
         })
